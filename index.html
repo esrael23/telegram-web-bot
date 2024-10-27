@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prayer Request Form</title>
+  <style>
+    body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f6f9; margin: 0; }
+    .form-container { background: #fff; padding: 20px; border-radius: 10px; width: 300px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+    .form-container h2 { font-size: 20px; margin-bottom: 20px; }
+    label, select, input, textarea { width: 100%; margin-bottom: 10px; font-size: 14px; }
+    select, input, textarea { padding: 8px; border: 1px solid #ddd; border-radius: 5px; }
+    .language-toggle { text-align: right; cursor: pointer; font-size: 12px; color: #0066cc; margin-bottom: 20px; }
+    button { background-color: #0066cc; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; width: 100%; }
+    button:hover { background-color: #004080; }
+    .confirmation { color: green; font-size: 14px; margin-top: 10px; }
+    .error { color: red; font-size: 12px; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <div class="language-toggle" onclick="toggleLanguage()">
+    <span id="language-label">eng</span>
+  </div>
+  <h2 id="form-title">Prayer Request Form</h2>
+  
+  <label id="name-label">Name</label>
+  <input type="text" placeholder="Enter your name" id="name" required>
+
+  <label id="age-label">Age</label>
+  <input type="number" placeholder="Enter your age" id="age" required>
+
+  <label id="gender-label">Gender</label>
+  <select id="gender" required>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
+
+  <label id="category-label">Category</label>
+  <select id="category" required>
+    <option value="health">Health</option>
+    <option value="relationships">Relationships</option>
+    <option value="faith">Faith</option>
+    <option value="other">Other</option>
+  </select>
+
+  <label id="urgency-label">Urgency</label>
+  <input type="checkbox" id="urgency">
+
+  <label id="anonymous-label">Submit Anonymously</label>
+  <input type="checkbox" id="anonymous">
+
+  <label id="details-label">Detailed Request</label>
+  <textarea placeholder="Describe your request in detail" id="details" required></textarea>
+
+  <button type="button" onclick="submitForm()">Submit Request</button>
+  <div id="message" class="confirmation" style="display: none;">Thank you! Your request has been submitted.</div>
+</div>
+
+<script>
+  let isAmharic = false;
+
+  const translations = {
+    amharic: {
+      "form-title": "የጸሎት ጥያቄ ቅጽ",
+      "name-label": "ስም",
+      "age-label": "እድሜ",
+      "gender-label": "ፆታ",
+      "category-label": "የጸሎት ምድብ",
+      "urgency-label": "አስቸኳይ",
+      "anonymous-label": "ሰውር",
+      "details-label": "ዝርዝር የጸሎት ሃሳብ",
+      "language-label": "eng"
+    },
+    english: {
+      "form-title": "Prayer Request Form",
+      "name-label": "Name",
+      "age-label": "Age",
+      "gender-label": "Gender",
+      "category-label": "Category",
+      "urgency-label": "Urgency",
+      "anonymous-label": "Submit Anonymously",
+      "details-label": "Detailed Request",
+      "language-label": "አማ"
+    }
+  };
+
+  function toggleLanguage() {
+    isAmharic = !isAmharic;
+    const lang = isAmharic ? 'amharic' : 'english';
+
+    Object.keys(translations[lang]).forEach(id => {
+      document.getElementById(id).innerText = translations[lang][id];
+    });
+  }
+
+  function submitForm() {
+    const name = document.getElementById("name").value;
+    const age = document.getElementById("age").value;
+    const details = document.getElementById("details").value;
+    const message = document.getElementById("message");
+
+    if (!name || !age || !details) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
+    message.style.display = "block";
+    message.textContent = isAmharic ? "እናመሰግናለን! ጥያቄዎ ተላልፏል።" : "Thank you! Your request has been submitted.";
+  }
+</script>
+
+</body>
+</html>
